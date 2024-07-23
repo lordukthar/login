@@ -1,0 +1,10 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align items to the start (left) */
+  padding: 20px; /* Optional padding */
+}
+
+router-outlet {
+  width: 50%;
+}

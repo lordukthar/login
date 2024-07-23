@@ -1,0 +1,38 @@
+$input-margin: 10px;
+
+// login.component.scss
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align items */
+  justify-content: center; /* Center vertically */
+  height: 100vh; /* Full viewport height */
+  width: 100%; /* Full width */
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px; /* Adjust width as needed */
+
+    .form-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px; /* Space between groups */
+
+      label {
+        width: 120px; /* Adjust label width as needed */
+        margin-right: 10px; /* Space between label and input */
+      }
+
+      input {
+        flex: 1; /* Take remaining space */
+      }
+    }
+
+    button {
+      margin-top: 10px; /* Space above the button */
+    }
+  }
+}

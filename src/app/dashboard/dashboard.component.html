@@ -1,0 +1,10 @@
+<p>dashboard works!</p>
+
+<!-- Display users from the in-memory database -->
+<div *ngIf="users.length">
+  <h3>Registered Users:</h3>
+  <ul>
+    <li *ngFor="let user of users">{{ user.name }} ({{ user.username }})</li>
+  </ul>
+</div>
+
