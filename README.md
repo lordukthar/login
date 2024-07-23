@@ -1,2 +1,2 @@
 # login
-login handling wiht postgres
+login handling with postgres
