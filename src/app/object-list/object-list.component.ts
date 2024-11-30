@@ -6,17 +6,34 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./object-list.component.scss']
 })
 export class ObjectListComponent {
-    @Output() itemDeleted = new EventEmitter<number>();
-      @Output() itemEdited = new EventEmitter<{ index: number; item: any }>();
-
   @Input() items: { href: string; name: string; price: number; description: string }[] = [];
+  @Output() itemDeleted = new EventEmitter<number>();
+  @Output() itemEdited = new EventEmitter<{ index: number; item: any }>();
 
-deleteItem(index: number) {
+  isEditing = false;
+  editedItem: any = null;
+  editingIndex: number | null = null;
+
+  deleteItem(index: number) {
     this.itemDeleted.emit(index); // Notify parent component to handle deletion
   }
 
   editItem(index: number) {
-    const itemToEdit = this.items[index];
-    this.itemEdited.emit({ index, item: itemToEdit }); // Notify parent component for editing
+    this.isEditing = true;
+    this.editingIndex = index;
+    this.editedItem = { ...this.items[index] }; // Make a copy of the item to edit
+  }
+
+  saveChanges() {
+    if (this.editingIndex !== null) {
+      this.items[this.editingIndex] = { ...this.editedItem }; // Save the changes to the item
+      this.isEditing = false; // Hide the modal after saving
+      this.editingIndex = null;
+    }
+  }
+
+  cancelEdit() {
+    this.isEditing = false; // Hide the modal without saving changes
+    this.editingIndex = null;
   }
 }
