@@ -1,0 +1,14 @@
+<div *ngIf="items && items.length; else noItems" class="grid-container">
+    <div class="grid-item" *ngFor="let item of items; let i = index">
+        <div class="item-actions">
+            <button class="action-btn delete-btn" (click)="deleteItem(i)">×</button>
+            <button class="action-btn edit-btn" (click)="editItem(i)">✎</button>
+        </div>
+        <a [href]="item.href">{{ item.name }}</a>
+        <p>Price: {{ item.price | currency }}</p>
+        <p>{{ item.description }}</p>
+    </div>
+</div>
+<ng-template #noItems>
+    <p>No items available.</p>
+</ng-template>

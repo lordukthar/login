@@ -9,6 +9,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LogoutComponent } from './logout/logout.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SignInComponent } from './sign-in/sign-in.component';
+import { ObjectListComponent } from './object-list/object-list.component';
+import { MyPresentsComponent } from './my-presents/my-presents.component';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { SignInComponent } from './sign-in/sign-in.component';
     LoginComponent,
     DashboardComponent,
     LogoutComponent,
-    SignInComponent
+    SignInComponent,
+    ObjectListComponent,
+    MyPresentsComponent
   ],
   imports: [
     BrowserModule,

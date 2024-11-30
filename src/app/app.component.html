@@ -1,14 +1,47 @@
+<nav class="navbar">
+  <a routerLink="/login">Login</a>
+  <a routerLink="/sign-in">Sign In</a>
+  <a routerLink="/dashboard">Home</a>
+  <a routerLink="/my-presents">My wishlist</a>
+</nav>
+<!--
+<div>
+  <h2>ExhaustMap</h2>
+  * exhaustMap: Ignores new emissions until the current inner observable
+  completes. Ideal for ignoring new actions while a current action is still
+  being processed.
 
-  <nav class="navbar">
-    <a routerLink="/login">Login</a>
-    <a routerLink="/sign-in">Sign In</a>
-    <a routerLink="/dashboard">Home</a>
-  </nav>
-  <div class="content">
-    <router-outlet></router-outlet>
-    <app-logout></app-logout>
-  </div>
+  <div *ngFor="let item of exhaustMapValues">{{ item }}</div>
+  <button (click)="exhaust()">exhaust</button>
 
+  <h2>MergeMap</h2>
+  * Merges all inner observables emitted by the source concurrently.
 
+  <div *ngFor="let item of mergeMapValues">{{ item }}</div>
+  <button (click)="merge()">merge</button>
 
+  <h2>SwitchMap</h2>
+  * Cancels previous inner observables when a new observable is emitted by the
+  source.
+  <div *ngFor="let item of switchMapValues">{{ item }}</div>
 
+  <button (click)="switch()">switch</button>
+
+  <h2>ConcatMap</h2>
+  * Use Case: When you want to preserve the order of the source observable and
+  ensure that each inner observable completes before starting the next one.
+
+  <div *ngFor="let item of concatMapValues">{{ item }}</div>
+  <button (click)="concat()">concat</button>
+
+  <h2>ZIppis</h2>
+  * Zip operations
+
+  <div *ngFor="let item of zipMapValues">{{ item }}</div>
+  <button (click)="zip()">zip</button>
+</div>
+-->
+<div class="content">
+  <router-outlet></router-outlet>
+  <app-logout></app-logout>
+</div>
