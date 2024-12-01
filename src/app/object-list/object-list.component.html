@@ -1,3 +1,28 @@
+<div class="add-item-toggle">
+    <button (click)="toggleAddForm()">
+        {{ isAddFormVisible ? 'Hide Add Form' : 'Add New Item' }}
+    </button>
+</div>
+
+<div *ngIf="isAddFormVisible" class="add-item-form">
+    <h3>Add New Item</h3>
+    <form (ngSubmit)="addItem()">
+        <label for="new-href">Link (href):</label>
+        <input type="text" id="new-href" [(ngModel)]="newItem.href" name="newHref" required>
+
+        <label for="new-name">Name:</label>
+        <input type="text" id="new-name" [(ngModel)]="newItem.name" name="newName" required>
+
+        <label for="new-price">Price:</label>
+        <input type="number" id="new-price" [(ngModel)]="newItem.price" name="newPrice" required>
+
+        <label for="new-description">Description:</label>
+        <textarea id="new-description" [(ngModel)]="newItem.description" name="newDescription" required></textarea>
+
+        <button type="submit">Add Item</button>
+    </form>
+</div>
+
 <div *ngIf="items && items.length; else noItems" class="grid-container">
     <div class="grid-item" *ngFor="let item of items; let i = index">
         <div class="item-actions">

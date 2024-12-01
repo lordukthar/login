@@ -122,3 +122,63 @@ p {
 .modal-content button[type="button"]:hover {
   background-color: #999;
 }
+
+
+.add-item-toggle {
+  margin-bottom: 1rem;
+}
+
+.add-item-toggle button {
+  background-color: #007bff;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.add-item-toggle button:hover {
+  background-color: #0056b3;
+}
+
+.add-item-form {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f1f1f1;
+}
+
+.add-item-form h3 {
+  margin-top: 0;
+}
+
+.add-item-form label {
+  display: block;
+  margin: 0.5rem 0 0.2rem;
+}
+
+.add-item-form input,
+.add-item-form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.add-item-form button {
+  background-color: #28a745;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.add-item-form button:hover {
+  background-color: #218838;
+}
+
