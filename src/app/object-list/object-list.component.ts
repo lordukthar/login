@@ -17,7 +17,9 @@ export class ObjectListComponent {
 
   isEditing = false;
     newItem = { href: '', name: '', price: 0, description: '' };
+    newItemI: Item = { href: '', name: '', price: 0, description: '' };
   editedItem: any = null;
+  editedItemI: Item| null = null;
   editingIndex: number | null = null;
    isAddFormVisible = false; // Initially hidden
 
@@ -43,7 +45,7 @@ export class ObjectListComponent {
   editItemI(index: number) {
       this.isEditing = true;
       this.editingIndex = index;
-      this.editedItem = { ...this.items_i[index] }; // Make a copy of the item to edit
+      this.editedItemI = { ...this.items_i[index] }; // Make a copy of the item to edit
     }
 
   saveChangesI() {
@@ -75,6 +77,12 @@ export class ObjectListComponent {
   addItem() {
       this.items.push({ ...this.newItem });
       this.newItem = { href: '', name: '', price: 0, description: '' };
+      this.isAddFormVisible = false; // Hide the form after adding an item
+    }
+
+addItemI() {
+      this.items_i.push({ ...this.newItemI });
+      this.newItemI = { href: '', name: '', price: 0, description: '' };
       this.isAddFormVisible = false; // Hide the form after adding an item
     }
 }

@@ -23,11 +23,42 @@
     </form>
 </div>
 
+<div *ngIf="isAddFormVisible" class="add-item-form">
+    <h3>Add New Item</h3>
+    <form (ngSubmit)="addItemI()">
+        <label for="new-href">Link (href):</label>
+        <input type="text" id="new-href-i" [(ngModel)]="newItemI.href" name="newHref" required>
+
+        <label for="new-name">Name:</label>
+        <input type="text" id="new-name-i" [(ngModel)]="newItemI.name" name="newName" required>
+
+        <label for="new-price">Price:</label>
+        <input type="number" id="new-price-i" [(ngModel)]="newItemI.price" name="newPrice" required>
+
+        <label for="new-description">Description:</label>
+        <textarea id="new-description-i" [(ngModel)]="newItemI.description" name="newDescription" required></textarea>
+
+        <button type="submit">Add Item</button>
+    </form>
+</div>
+
 <div *ngIf="items && items.length; else noItems" class="grid-container">
     <div class="grid-item" *ngFor="let item of items; let i = index">
         <div class="item-actions">
             <button class="action-btn delete-btn" (click)="deleteItem(i)">×</button>
             <button class="action-btn edit-btn" (click)="editItem(i)">✎</button>
+        </div>
+        <a [href]="item.href">{{ item.name }}</a>
+        <p>Price: {{ item.price | currency }}</p>
+        <p>{{ item.description }}</p>
+    </div>
+</div>
+
+<div *ngIf="items && items.length; else noItems" class="grid-container">
+    <div class="grid-item" *ngFor="let item of items_i; let i = index">
+        <div class="item-actions">
+            <button class="action-btn delete-btn" (click)="deleteItemI(i)">×</button>
+            <button class="action-btn edit-btn" (click)="editItemI(i)">✎</button>
         </div>
         <a [href]="item.href">{{ item.name }}</a>
         <p>Price: {{ item.price | currency }}</p>
