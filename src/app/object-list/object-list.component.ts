@@ -7,67 +7,49 @@ import { Item } from '../models/item.interface';
   styleUrls: ['./object-list.component.scss']
 })
 export class ObjectListComponent {
-  @Input() items: { href: string; name: string; price: number; description: string }[] = [];
+  @Input() items: Item[] = [];
   @Output() itemDeleted = new EventEmitter<number>();
-  @Output() itemEdited = new EventEmitter<{ index: number; item: any }>();
+  @Output() itemEdited = new EventEmitter<{ index: number; item: Item }>();
 
-   @Input() items_i: Item[] = [];
-    @Output() itemDeleted_i = new EventEmitter<number>();
-    @Output() itemEdited_i = new EventEmitter<{ index: number; item: Item }>();
 
-  isEditing = false;
-    newItem = { href: '', name: '', price: 0, description: '' };
-    newItemI: Item = { href: '', name: '', price: 0, description: '' };
-  editedItem: any = null;
-  editedItemI: Item| null = null;
-  editingIndex: number | null = null;
+   isEditing = false;
+   newItem: Item = { href: '', name: '', price: 0, description: '', bought: false};
+   editedItem: Item| null = null;
+   editingIndex: number | null = null;
    isAddFormVisible = false; // Initially hidden
-
 
     toggleAddForm() {
        this.isAddFormVisible = !this.isAddFormVisible;
      }
 
-  deleteItem(index: number) {
-    this.itemDeleted_i.emit(index); // Notify parent component to handle deletion
-  }
 
- deleteItemI(index: number) {
+ deleteItem(index: number) {
     this.itemDeleted.emit(index); // Notify parent component to handle deletion
   }
 
   editItem(index: number) {
-    this.isEditing = true;
-    this.editingIndex = index;
-    this.editedItem = { ...this.items[index] }; // Make a copy of the item to edit
-  }
-
-  editItemI(index: number) {
       this.isEditing = true;
       this.editingIndex = index;
-      this.editedItemI = { ...this.items_i[index] }; // Make a copy of the item to edit
+      this.editedItem = { ...this.items[index] }; // Make a copy of the item to edit
     }
 
-  saveChangesI() {
-    if (this.editingIndex !== null) {
-      this.items_i[this.editingIndex] = { ...this.editedItem }; // Save the changes to the item
-      this.isEditing = false; // Hide the modal after saving
+   saveChanges() {
+    if (this.editingIndex !== null && this.editedItem) {
+
+        const updatedItem: Item = {
+                href: this.editedItem.href || '',
+                name: this.editedItem.name || '',
+                price: this.editedItem.price || 0,
+                description: this.editedItem.description || '',
+                bought: this.editedItem.bought ?? false, // Ensure `bought` is not undefined
+              };
+
+    this.items[this.editingIndex] = updatedItem;
+      this.isEditing = false;
+      this.editedItem = null;
       this.editingIndex = null;
     }
   }
-
-  saveChanges() {
-    if (this.editingIndex !== null) {
-      this.items[this.editingIndex] = { ...this.editedItem }; // Save the changes to the item
-      this.isEditing = false; // Hide the modal after saving
-      this.editingIndex = null;
-    }
-  }
-
-  cancelEditI() {
-      this.isEditing = false; // Hide the modal without saving changes
-      this.editingIndex = null;
-    }
 
   cancelEdit() {
     this.isEditing = false; // Hide the modal without saving changes
@@ -76,13 +58,7 @@ export class ObjectListComponent {
 
   addItem() {
       this.items.push({ ...this.newItem });
-      this.newItem = { href: '', name: '', price: 0, description: '' };
-      this.isAddFormVisible = false; // Hide the form after adding an item
-    }
-
-addItemI() {
-      this.items_i.push({ ...this.newItemI });
-      this.newItemI = { href: '', name: '', price: 0, description: '' };
+      this.newItem = { href: '', name: '', price: 0, description: '',bought: false };
       this.isAddFormVisible = false; // Hide the form after adding an item
     }
 }

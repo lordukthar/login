@@ -4,4 +4,5 @@ export interface Item {
   name: string | undefined;
   price: number | undefined;
   description: string | undefined;
+   bought: boolean; // New property
 }
