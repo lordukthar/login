@@ -4,8 +4,6 @@
     </button>
 </div>
 
-
-
 <div *ngIf="isAddFormVisible" class="add-item-form">
     <h3>Add New Item</h3>
     <form (ngSubmit)="addItem()">
@@ -27,7 +25,7 @@
 
 <div class="card-container">
     <div
-            *ngFor="let item of items; let i = index"
+            *ngFor="let item of objectList; let i = index"
             class="card"
             [ngStyle]="{ 'background-color': item.bought ? 'lightgrey' : 'white' }"
     >
@@ -41,12 +39,10 @@
         </div>
     </div>
 </div>
-
 <ng-template #noItems>
     <p>No items available.</p>
 </ng-template>
 
-<!-- Edit Modal -->
 <div *ngIf="isEditing && editedItem" class="edit-modal">
     <div class="modal-content">
         <h3>Edit Item</h3>
@@ -68,4 +64,5 @@
         </form>
     </div>
 </div>
+
 
