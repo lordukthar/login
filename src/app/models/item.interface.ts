@@ -6,6 +6,7 @@ export interface Item {
   description: string | undefined;
    bought: boolean;
    buyer: string  | undefined;
+   wisher: string  | undefined;
 }
 
 
@@ -15,4 +16,8 @@ export interface MyItem {
   name: string | undefined;
   price: number | undefined;
   description: string | undefined;
+}
+
+export interface ItemWithWisher extends MyItem {
+  wisher: string;
 }

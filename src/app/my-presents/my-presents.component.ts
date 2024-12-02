@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { MyItem } from '../models/item.interface';
 import { User, UserService } from '../user.service'
+import { PresentService } from '../present.service'
 
 @Component({
   selector: 'app-my-presents',
@@ -39,7 +40,7 @@ export class MyPresentsComponent implements OnInit {
         }
     ];
 
-    constructor(private userService: UserService) {}
+    constructor(private userService: UserService, private presentService: PresentService) {}
 
     ngOnInit() {
         this.userService.username$.subscribe((name:string) => {
@@ -48,7 +49,19 @@ export class MyPresentsComponent implements OnInit {
     }
 
     deleteItem(index: number) {
-        this.objectList.splice(index, 1);  // Notify parent component to handle deletion
+
+         const itemName = this.objectList[index].name;
+         if (itemName !== undefined) {
+               this.presentService.delete(itemName, this.username)
+                             .subscribe((response:any) => {
+                             this.objectList.splice(index, 1);
+                               console.log('Item with wisher deleteed:', response);
+                             });
+
+                      // Notify parent component to handle deletion
+             }
+
+
     }
 
     toggleAddForm() {
@@ -56,10 +69,22 @@ export class MyPresentsComponent implements OnInit {
     }
 
     addItem() {
-        this.objectList.push({ ...this.newItem });
-        this.newItem = { href: '', name: '', price: 0, description: '' };
-        this.isAddFormVisible = false; // Hide the form after adding an item
-    }
+        this.presentService.add(this.newItem, this.username)
+        .subscribe(response => {
+            const myItem: MyItem = {
+                href: response.href,
+                name: response.name,
+                price: response.price,
+                description: response.description
+              };
+
+           this.objectList.push(myItem); // Add the saved item to the list
+                      this.newItem = { href: '', name: '', price: 0, description: '' };
+                      this.isAddFormVisible = false;
+
+          console.log('Item with wisher added:', response);
+        });
+      }
 
     editItem(index: number) {
         this.isEditing = true;

@@ -27,6 +27,28 @@ pool.connect((err, client, done) => {
   done();
 });
 
+app.delete('/presents', async (req, res) => {
+  const { name, wisher } = req.body;
+
+  try {
+    // Delete the present matching the name and wisher
+    const result = await pool.query(
+      'DELETE FROM presents WHERE name = $1 AND wisher = $2',
+      [name, wisher]
+    );
+
+    // Check if any rows were deleted
+    if (result.rowCount === 0) {
+      return res.status(404).json({ message: 'Present not found' });
+    }
+
+    res.status(200).json({ message: 'Present deleted successfully' });
+  } catch (err) {
+    console.error('Error during delete process:', err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 // Define the /users endpoint to fetch all users
 app.get('/users', async (req, res) => {
   try {
@@ -60,10 +82,24 @@ app.post('/register', async (req, res) => {
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    await pool.query('INSERT INTO users (username, password, email) VALUES ($1, $2, $3)', [username, hashedPassword]);
+    await pool.query('INSERT INTO users (username, password, email) VALUES ($1, $2, $3)', [username, hashedPassword, email]);
     res.status(201).json({ message: 'User registered successfully' });
   } catch (err) {
     console.error('Error during registration process:', err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+
+app.post('/presents', async (req, res) => {
+  const { href, name, price, description, wisher } = req.body;
+
+  try {
+    await pool.query('INSERT INTO presents (href, name, price, description, wisher, bought, buyer) VALUES ($1, $2, $3)',
+     [ href, name, price, description, wisher, false, '']);
+    res.status(201).json({ message: 'Present registered successfully' });
+  } catch (err) {
+    console.error('Error during present process:', err.message);
     res.status(500).send('Server Error');
   }
 });

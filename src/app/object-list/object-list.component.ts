@@ -16,7 +16,7 @@ export class ObjectListComponent implements OnInit {
 
 
    isEditing = false;
-   newItem: Item = { href: '', name: '', price: 0, description: '', bought: false, buyer: undefined};
+   newItem: Item = { href: '', name: '', price: 0, description: '', bought: false, buyer: undefined, wisher:undefined};
    editedItem: Item| null = null;
    editingIndex: number | null = null;
    isAddFormVisible = false; // Initially hidden
@@ -50,6 +50,7 @@ export class ObjectListComponent implements OnInit {
 
         const updatedItem: Item = {
                buyer:'',
+                wisher:'',
                 href: this.editedItem.href || '',
                 name: this.editedItem.name || '',
                 price: this.editedItem.price || 0,
@@ -71,7 +72,7 @@ export class ObjectListComponent implements OnInit {
 
   addItem() {
       this.items.push({ ...this.newItem });
-      this.newItem = { href: '', name: '', price: 0, description: '',bought: false,buyer: undefined };
+      this.newItem = { href: '', name: '', price: 0, description: '',bought: false,buyer: undefined, wisher: undefined };
       this.isAddFormVisible = false; // Hide the form after adding an item
     }
 }
