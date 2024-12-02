@@ -14,21 +14,24 @@ export class BoughtPresentsComponent {
         name: 'Item 1',
         price: 19.99,
         description: 'This is the description for Item 1.',
-        bought: true
+        bought: true,
+        buyer:'Jenny'
       },
       {
         href: 'https://example.com/item2',
         name: 'Item 2',
         price: 29.99,
         description: 'This is the description for Item 2.',
-        bought: true
+        bought: true,
+              buyer:'Jenny'
       },
       {
         href: 'https://example.com/item3',
         name: 'Item 3',
         price: 39.99,
         description: 'This is the description for Item 3.',
-        bought: true
+        bought: true,
+              buyer:'Jenny'
       }
     ];
 

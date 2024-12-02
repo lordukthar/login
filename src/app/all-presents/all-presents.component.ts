@@ -13,21 +13,24 @@ export class AllPresentsComponent {
             name: 'Item 1',
             price: 19.99,
             description: 'This is the description for Item 1.',
-            bought: false
+            bought: false,
+                  buyer:''
           },
           {
             href: 'https://example.com/item2',
             name: 'Item 2',
             price: 29.99,
             description: 'This is the description for Item 2.',
-            bought: true
+            bought: true,
+            buyer:'Jonas'
           },
           {
             href: 'https://example.com/item3',
             name: 'Item 3',
             price: 39.99,
             description: 'This is the description for Item 3.',
-            bought: false
+            bought: false,
+            buyer:''
           }
         ];
 

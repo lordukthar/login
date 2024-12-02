@@ -1,22 +1,34 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Item } from '../models/item.interface';
+import { User, UserService } from '../user.service'
 
 @Component({
   selector: 'app-object-list',
   templateUrl: './object-list.component.html',
   styleUrls: ['./object-list.component.scss']
 })
-export class ObjectListComponent {
+export class ObjectListComponent implements OnInit {
   @Input() items: Item[] = [];
   @Output() itemDeleted = new EventEmitter<number>();
   @Output() itemEdited = new EventEmitter<{ index: number; item: Item }>();
+  username: string = '';
+
 
 
    isEditing = false;
-   newItem: Item = { href: '', name: '', price: 0, description: '', bought: false};
+   newItem: Item = { href: '', name: '', price: 0, description: '', bought: false, buyer: undefined};
    editedItem: Item| null = null;
    editingIndex: number | null = null;
    isAddFormVisible = false; // Initially hidden
+
+
+    constructor(private userService: UserService) {}
+
+    ngOnInit() {
+       this.userService.username$.subscribe((name:string) => {
+         this.username = name;
+       });
+    }
 
     toggleAddForm() {
        this.isAddFormVisible = !this.isAddFormVisible;
@@ -37,6 +49,7 @@ export class ObjectListComponent {
     if (this.editingIndex !== null && this.editedItem) {
 
         const updatedItem: Item = {
+               buyer:'',
                 href: this.editedItem.href || '',
                 name: this.editedItem.name || '',
                 price: this.editedItem.price || 0,
@@ -58,7 +71,7 @@ export class ObjectListComponent {
 
   addItem() {
       this.items.push({ ...this.newItem });
-      this.newItem = { href: '', name: '', price: 0, description: '',bought: false };
+      this.newItem = { href: '', name: '', price: 0, description: '',bought: false,buyer: undefined };
       this.isAddFormVisible = false; // Hide the form after adding an item
     }
 }

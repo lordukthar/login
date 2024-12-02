@@ -35,6 +35,8 @@ export class LoginComponent implements OnInit {
             response => {
               console.log('Login successful', response);
               localStorage.setItem("sessionToken", response.sessionToken)
+
+              this.userService.setUserName(this.username);
                this.router.navigate(['/dashboard']);
               // Store the session token and user info as needed
             },
