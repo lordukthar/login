@@ -90,19 +90,69 @@ app.post('/register', async (req, res) => {
   }
 });
 
-
-app.post('/presents', async (req, res) => {
-  const { href, name, price, description, wisher } = req.body;
-
+app.get('/items', async (req, res) => {
   try {
-    await pool.query('INSERT INTO presents (href, name, price, description, wisher, bought, buyer) VALUES ($1, $2, $3)',
-     [ href, name, price, description, wisher, false, '']);
-    res.status(201).json({ message: 'Present registered successfully' });
+    const result = await pool.query('SELECT * FROM items');
+    res.status(200).json(result.rows);
   } catch (err) {
-    console.error('Error during present process:', err.message);
+    console.error('Error fetching items:', err.message);
     res.status(500).send('Server Error');
   }
 });
+
+app.delete('/items/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await pool.query('DELETE FROM items WHERE id = $1', [id]);
+    if (result.rowCount > 0) {
+      res.status(200).json({ message: 'Item deleted successfully' });
+    } else {
+      res.status(404).json({ message: 'Item not found' });
+    }
+  } catch (err) {
+    console.error('Error deleting item:', err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+app.put('/items/:id', async (req, res) => {
+  const { id } = req.params;
+  const { href, name, price, description, wisher, bought, buyer } = req.body;
+
+  try {
+    const result = await pool.query(
+      'UPDATE items SET href = $1, name = $2, price = $3, description = $4, wisher = $5, bought = $6, buyer = $7 WHERE id = $8',
+      [href, name, price, description, wisher, bought, buyer, id]
+    );
+
+    if (result.rowCount > 0) {
+      res.status(200).json({ message: 'Item updated successfully' });
+    } else {
+      res.status(404).json({ message: 'Item not found' });
+    }
+  } catch (err) {
+    console.error('Error updating item:', err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+
+app.post('/items', async (req, res) => {
+  const { href, name, price, description, wisher } = req.body;
+
+  try {
+    await pool.query(
+      'INSERT INTO items (href, name, price, description, wisher, bought, buyer) VALUES ($1, $2, $3, $4, $5, $6, $7)',
+      [href, name, price, description, wisher, false, '']
+    );
+    res.status(201).json({ message: 'Item inserted successfully' });
+  } catch (err) {
+    console.error('Error inserting item:', err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 
 
 

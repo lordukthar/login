@@ -22,39 +22,13 @@ export class MyPresentsComponent implements OnInit {
     editingIndex: number | null = null;
 
 
-    objectList : Item[] =  [
-        {
-            href: 'https://example.com/item1',
-            name: 'Badrumsvåg',
-            price: 19.99,
-            description: 'This is the description for Item 1.',
-            bought: false,
-            buyer: undefined,
-            wisher: 'john_doe'
-        },
-        {
-            href: 'https://example.com/item2',
-            name: 'Sneakers',
-            price: 29.99,
-            description: 'This is the description for Item 2.',
-           bought: false,
-            buyer: undefined,
-           wisher: 'john_doe'
-        },
-        {
-            href: 'https://example.com/item3',
-            name: 'Morgonrock',
-            price: 39.99,
-            description: 'This is the description for Item 3.',
-           bought: false,
-            buyer: undefined,
-            wisher: 'otto'
-        }
-    ];
+    objectList: Item[] = [];
 
     constructor(private userService: UserService, private presentService: PresentService) {}
 
     ngOnInit() {
+
+        this.fetchItems();
         this.userService.username$.subscribe((name:string) => {
            // this.username = name;
         });
@@ -63,19 +37,29 @@ export class MyPresentsComponent implements OnInit {
          console.log("FOO", this.username)
     }
 
+fetchItems(): void {
+    this.presentService.get().subscribe({
+      next: (items:Item[]) => {
+        this.objectList = items; // Assign fetched items to objectList
+      },
+      error: (err:any) => {
+        console.error('Error fetching items:', err);
+      }
+    });
+  }
+
+
     deleteItem(index: number) {
 
-        const itemName = this.objectList[index].name;
-        if (itemName !== undefined) {
-               this.presentService.delete(itemName, this.username)
-                             .subscribe((response:any) => {
-                             this.objectList.splice(index, 1);
-                               console.log('Item with wisher deleteed:', response);
-                             });
+        const id = this.objectList[index].id || 0;
 
-                      // Notify parent component to handle deletion
-             }
+       this.presentService.delete(id)
+             .subscribe((response:any) => {
+             this.objectList.splice(index, 1);
+               console.log('Item with wisher deleteed:', response);
+     });
 
+                      // Notify parent component to handle deletio
 
     }
 
@@ -84,8 +68,16 @@ export class MyPresentsComponent implements OnInit {
     }
 
     addItem() {
-        this.presentService.add(this.newItem, this.username)
-        .subscribe(response => {
+
+    const body: Item = {
+      ...this.newItem,           // Spread all properties of item
+      wisher: this.username,  // Explicitly set wisher to username
+      bought:false              // Include buyer if it's defined
+    };
+
+
+        this.presentService.post(body)
+        .subscribe((response:any) => {
             const myItem: Item = {
                 href: response.href,
                 name: response.name,
