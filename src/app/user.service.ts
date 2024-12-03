@@ -26,12 +26,17 @@ export class UserService {
 
 
 setUserName(userName:string): void {
-this.usernameSubject.next(userName);
-    }
+    this.usernameSubject.next(userName);
+    sessionStorage.setItem('username', userName);
+ }
 
  getUsername(): string {
     return this.usernameSubject.value;
   }
+
+  getUser(): string {
+      return sessionStorage.getItem('username') || '';
+    }
 
 
 isCookieSet(name: string): boolean {

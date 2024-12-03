@@ -51,9 +51,12 @@ export class AllPresentsComponent implements OnInit{
 
         ngOnInit() {
             this.userService.username$.subscribe((name:string) => {
-                this.username = name;
-                console.log("FOO user name", this.username)
+               // this.username = name;
+
             });
+
+             this.username = this.userService.getUser();
+              console.log("FOO user name", this.username)
         }
 
 
@@ -78,7 +81,7 @@ toggleBought(index: number) {
 
 
 filteredList(): Item[] {
-  return this.objectList.filter(item => item.buyer !== this.username);
+  return this.objectList.filter(item => item.wisher !== this.username);
 }
 
 

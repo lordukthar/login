@@ -46,6 +46,9 @@ export class MyPresentsComponent implements OnInit {
         this.userService.username$.subscribe((name:string) => {
             this.username = name;
         });
+
+
+        console.log("JKLK", this.userService.getUser());
     }
 
     deleteItem(index: number) {
