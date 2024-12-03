@@ -1,3 +1,24 @@
-<app-object-list [items]="objectList"
-                 (itemDeleted)="onItemDeleted($event)"
-></app-object-list>
+<div class="card-container">
+    <div
+            *ngFor="let item of filteredList(); let i = index"
+            class="card"
+    >
+        <h3>{{ item.name }}</h3>
+        <p><strong>Pris:</strong> {{ item.price | currency }}</p>
+        <p><strong>Beskrivning:</strong> {{ item.description }}</p>
+        <p><strong>Länk:</strong> <a [href]="item.href" target="_blank">{{ item.href }}</a></p>
+        <div class="button-group">
+            <div>
+                <button (click)="doNotNuy(i)">Köp</button>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #noItems>
+    <p>No items available.</p>
+</ng-template>
+
+
+
+
+

@@ -66,7 +66,6 @@ toggleBought(index: number) {
     }
   }
 
-
     onItemDeleted(index: number) {
       this.objectList.splice(index, 1); // Remove the item from the list
     }

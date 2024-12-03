@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 
-import { MyItem } from '../models/item.interface';
+import { Item } from '../models/item.interface';
 import { User, UserService } from '../user.service'
 import { PresentService } from '../present.service'
 
@@ -14,29 +14,41 @@ export class MyPresentsComponent implements OnInit {
     username = ''
     isAddFormVisible = false; // Initially hidden
     isEditing = false;
-    newItem: MyItem = { href: '', name: '', price: 0, description: ''};
-    editedItem: MyItem| null = null;
+    newItem: Item = { href: '', name: '', price: 0, description: '',
+     bought: false,
+                buyer: undefined,
+                wisher: this.username};
+    editedItem: Item| null = null;
     editingIndex: number | null = null;
 
 
-    objectList : MyItem[] =  [
+    objectList : Item[] =  [
         {
             href: 'https://example.com/item1',
             name: 'Badrumsvåg',
             price: 19.99,
-            description: 'This is the description for Item 1.'
+            description: 'This is the description for Item 1.',
+            bought: false,
+            buyer: undefined,
+            wisher: 'john_doe'
         },
         {
             href: 'https://example.com/item2',
             name: 'Sneakers',
             price: 29.99,
-            description: 'This is the description for Item 2.'
+            description: 'This is the description for Item 2.',
+           bought: false,
+            buyer: undefined,
+           wisher: 'john_doe'
         },
         {
             href: 'https://example.com/item3',
             name: 'Morgonrock',
             price: 39.99,
-            description: 'This is the description for Item 3.'
+            description: 'This is the description for Item 3.',
+           bought: false,
+            buyer: undefined,
+            wisher: 'otto'
         }
     ];
 
@@ -44,17 +56,17 @@ export class MyPresentsComponent implements OnInit {
 
     ngOnInit() {
         this.userService.username$.subscribe((name:string) => {
-            this.username = name;
+           // this.username = name;
         });
 
-
-        console.log("JKLK", this.userService.getUser());
+         this.username = this.userService.getUser();
+         console.log("FOO", this.username)
     }
 
     deleteItem(index: number) {
 
-         const itemName = this.objectList[index].name;
-         if (itemName !== undefined) {
+        const itemName = this.objectList[index].name;
+        if (itemName !== undefined) {
                this.presentService.delete(itemName, this.username)
                              .subscribe((response:any) => {
                              this.objectList.splice(index, 1);
@@ -74,15 +86,19 @@ export class MyPresentsComponent implements OnInit {
     addItem() {
         this.presentService.add(this.newItem, this.username)
         .subscribe(response => {
-            const myItem: MyItem = {
+            const myItem: Item = {
                 href: response.href,
                 name: response.name,
                 price: response.price,
-                description: response.description
+                description: response.description,
+                bought: false,
+                buyer: undefined,
+                wisher: this.username
               };
 
            this.objectList.push(myItem); // Add the saved item to the list
-                      this.newItem = { href: '', name: '', price: 0, description: '' };
+                      this.newItem = { href: '', name: '', price: 0, description: '', bought: false,
+                            buyer: undefined, wisher: this.username };
                       this.isAddFormVisible = false;
 
           console.log('Item with wisher added:', response);
@@ -98,11 +114,14 @@ export class MyPresentsComponent implements OnInit {
     saveChanges() {
         if (this.editingIndex !== null && this.editedItem) {
 
-            const updatedItem: MyItem = {
+            const updatedItem: Item = {
                 href: this.editedItem.href || '',
                 name: this.editedItem.name || '',
                 price: this.editedItem.price || 0,
-                description: this.editedItem.description || ''
+                description: this.editedItem.description || '',
+                bought: false,
+                buyer: undefined,
+                wisher: this.username
             };
 
             this.objectList[this.editingIndex] = updatedItem;
@@ -115,6 +134,12 @@ export class MyPresentsComponent implements OnInit {
         this.isEditing = false; // Hide the modal without saving changes
         this.editingIndex = null;
     }
+
+
+
+filteredList(): Item[] {
+  return this.objectList.filter(item => item.wisher === this.username);
+}
 
 
 }
