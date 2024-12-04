@@ -13,19 +13,20 @@ import {
 import {Item} from './models/item.interface';
 
 let collection_name = "presents";
-/*
-export const deletePresent = async (item: Item): Promise<void> => {
-  const citiesCol = collection(db, collection_name);
-  const citySnapshot = await getDocs(citiesCol);
 
-  citySnapshot.docs.forEach((d) => {
-    if (d.id === item.id) {
-      deleteDoc(doc(db, collection_name, d.id));
-    }
-  });
 
- return Promise.resolve();
-};*/
+export const deletePresent = async (item: Item): Promise<Item> => {
+
+     const a = item.firebaseID || ''
+  // Directly reference the document by its ID
+  const docRef = doc(db, collection_name, a);
+
+  // Delete the document
+  await deleteDoc(docRef);
+
+  return item;
+};
+
 
 
 export const updatePresent = async (item: Item): Promise<Item> => {

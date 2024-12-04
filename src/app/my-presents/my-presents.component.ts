@@ -60,7 +60,7 @@ fetchItems(): void {
 
         const id = this.objectList[index].id || 0;
 
-       this.presentService.delete(id)
+       this.presentService.delete(this.objectList[index])
              .subscribe((response:any) => {
              this.objectList.splice(index, 1);
                console.log('Item with wisher deleteed:', response);

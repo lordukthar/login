@@ -6,6 +6,8 @@ import {Item} from './models/item.interface';
 import {
   addPresent,
   getPresents,
+  updatePresent,
+  deletePresent
 } from './firebase.service';
 
 export type User = {
@@ -29,7 +31,7 @@ export class PresentService {
     return from(getPresents());
   }
 
-post(item: Item): Observable<any> {
+post(item: Item): Observable<Item> {
 
      const sanitizedItem = {
             ...item,
@@ -41,12 +43,14 @@ post(item: Item): Observable<any> {
 }
 
 
-delete(id: number): Observable<any> {
-  return this.http.delete<any>(`${this.apiUrl}/${id}`);
+delete(item: Item): Observable<Item> {
+  return from(deletePresent(item));
+  //return this.http.delete<any>(`${this.apiUrl}/${id}`);
 }
 
 put(item: Item): Observable<Item> {
-  return this.http.put<Item>(`${this.apiUrl}/${item.id}`, item);
+     return from(updatePresent(item));
+ // return this.http.put<Item>(`${this.apiUrl}/${item.id}`, item);
 }
 
 
