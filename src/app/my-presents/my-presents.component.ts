@@ -142,6 +142,10 @@ fetchItems(): void {
 
 
 
+filteredList(): Item[] {
+  return this.objectList.filter(item => item.wisher === this.username);
+}
+
 
 }
 

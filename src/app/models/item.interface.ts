@@ -8,5 +8,6 @@ export interface Item {
    bought: boolean;
    buyer?: string  | undefined;
    wisher: string  | undefined;
+   firebaseID?: string
 }
 

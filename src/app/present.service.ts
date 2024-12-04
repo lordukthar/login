@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, from } from 'rxjs';
 import {Item} from './models/item.interface';
+
+import {
+  addPresent,
+  getPresents,
+} from './firebase.service';
 
 export type User = {
   id: number,
@@ -20,11 +25,19 @@ export class PresentService {
   constructor(private http: HttpClient) { }
 
   get(): Observable<Item[]> {
-    return this.http.get<Item[]>(this.apiUrl);
+    //return this.http.get<Item[]>(this.apiUrl);
+    return from(getPresents());
   }
 
-post(item: Item): Observable<Item> {
-  return this.http.post<Item>(this.apiUrl, item);
+post(item: Item): Observable<any> {
+
+     const sanitizedItem = {
+            ...item,
+            buyer: item.buyer || "", // Provide a default value if 'buyer' is undefined
+            id: Date.now()
+          };
+
+    return from(addPresent(sanitizedItem));
 }
 
 
