@@ -1,7 +1,8 @@
 <div class="card-container">
     <div
-            *ngFor="let item of filteredList(); let i = index"
+            *ngFor="let item of objectList; let i = index"
             class="card"
+            [class.bought]="item.bought"
     >
         <h3>{{ item.name }}</h3>
         <p><strong>Pris:</strong> {{ item.price | currency }}</p>
@@ -9,7 +10,7 @@
         <p><strong>Länk:</strong> <a [href]="item.href" target="_blank">{{ item.href }}</a></p>
         <div class="button-group">
             <div>
-                <button (click)="toggleBought(i)">Köp</button>
+                <button (click)="toggleBought(i)" [disabled]="item.bought">Köp</button>
             </div>
         </div>
     </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Item } from '../models/item.interface';
 import { User, UserService } from '../user.service'
 import { PresentService } from '../present.service'
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-all-presents',
@@ -31,16 +32,22 @@ export class AllPresentsComponent implements OnInit{
         }
 
 
-    fetchItems(): void {
-        this.presentService.get().subscribe({
-          next: (items:Item[]) => {
-            this.objectList = items; // Assign fetched items to objectList
-          },
-          error: (err:any) => {
-            console.error('Error fetching items:', err);
-          }
-        });
-      }
+   fetchItems(): void {
+     const username = sessionStorage.getItem('username'); // Get the username from session storage
+
+     this.presentService.get().pipe(
+       map((items: Item[]) =>
+         items.filter(item =>  item.wisher !== this.username) // Filter items where wisher matches username
+       )
+     ).subscribe(
+       (filteredItems: Item[]) => {
+         this.objectList = filteredItems; // Assign filtered items to objectList
+       },
+       (err: any) => {
+         console.error('Error fetching items:', err);
+       }
+     );
+   }
 
 
 toggleBought(index: number) {
@@ -59,12 +66,4 @@ toggleBought(index: number) {
         this.objectList[event.index].name = updatedName;
       }
     }
-
-
-
-filteredList(): Item[] {
-  return this.objectList.filter(item => item.wisher !== this.username);
-}
-
-
 }

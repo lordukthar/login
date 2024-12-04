@@ -169,7 +169,7 @@ app.post('/login', async (req, res) => {
     if (userResult.rows.length > 0) {
       const user = userResult.rows[0];
       const sessionToken = uuidv4();
-      const expiresAt = new Date(Date.now() + 5 * 60 * 1000); // 5 minutes from now
+      const expiresAt = new Date(Date.now() + 30 * 60 * 1000); // 5 minutes from now
 
       await pool.query('INSERT INTO sessions (user_id, session_token, expires_at) VALUES ($1, $2, $3)', [user.id, sessionToken, expiresAt]);
 

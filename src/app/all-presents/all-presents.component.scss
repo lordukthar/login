@@ -194,6 +194,10 @@ p {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s;
 }
+.card.bought {
+  background-color: lightgrey; /* Light grey background for bought items */
+}
+
 
 .card:hover {
   background-color: #f9f9f9;
