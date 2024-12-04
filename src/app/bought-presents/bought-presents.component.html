@@ -7,11 +7,6 @@
         <p><strong>Pris:</strong> {{ item.price | currency }}</p>
         <p><strong>Beskrivning:</strong> {{ item.description }}</p>
         <p><strong>Länk:</strong> <a [href]="item.href" target="_blank">{{ item.href }}</a></p>
-        <div class="button-group">
-            <div>
-                <button (click)="doNotNuy(i)">Ångra köp</button>
-            </div>
-        </div>
     </div>
 </div>
 <ng-template #noItems>

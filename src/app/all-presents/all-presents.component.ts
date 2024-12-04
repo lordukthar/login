@@ -63,9 +63,6 @@ buy(index: number) {
                    });
 
                   this.objectList[index] = body;
-
-
-
     }
   }
 

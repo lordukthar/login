@@ -11,7 +11,7 @@
         <p><strong>Länk:</strong> <a [href]="item.href" target="_blank">{{ item.href }}</a></p>
         <div class="button-group">
             <div *ngIf="item.bought && item.buyer === username" class="warning">
-                <button (click)="regretBuy(i)" [disabled]="item.bought">Ångra köp</button>
+                <button (click)="regretBuy(i)">Ångra köp</button>
             </div>
             <div *ngIf="!item.bought" class="warning">
                 <button (click)="buy(i)" [disabled]="item.bought">Köp</button>
