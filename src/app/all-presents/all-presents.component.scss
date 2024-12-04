@@ -198,6 +198,9 @@ p {
   background-color: lightgrey; /* Light grey background for bought items */
 }
 
+.card.light-red {
+  background-color: lightcoral; /* Light red if buyer is the same as username */
+}
 
 .card:hover {
   background-color: #f9f9f9;

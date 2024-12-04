@@ -50,20 +50,42 @@ export class AllPresentsComponent implements OnInit{
    }
 
 
-toggleBought(index: number) {
+buy(index: number) {
     if (this.objectList[index]) {
-      this.objectList[index].bought = !this.objectList[index].bought;
+      const body: Item = { ...this.objectList[index],
+            bought:true,
+            buyer:this.username
+          };
+
+       this.presentService.put(body)
+              .subscribe((response:any) => {
+                     console.log('Item with wisher deleteed:', response);
+                   });
+
+                  this.objectList[index] = body;
+
+
+
     }
   }
 
-    onItemDeleted(index: number) {
-      this.objectList.splice(index, 1); // Remove the item from the list
-    }
+  regretBuy(index: number) {
+      if (this.objectList[index]) {
+       const body: Item = { ...this.objectList[index],
+                   bought:false,
+                   buyer:undefined
+                 };
 
-    onItemEdited(event: { index: number; item: any }) {
-      const updatedName = prompt('Edit name:', event.item.name);
-      if (updatedName !== null) {
-        this.objectList[event.index].name = updatedName;
+              this.presentService.put(body)
+                     .subscribe((response:any) => {
+                            console.log('Item with wisher deleteed:', response);
+                          });
+
+                         this.objectList[index] = body;
+
+
+
       }
     }
+
 }

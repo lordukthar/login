@@ -3,14 +3,18 @@
             *ngFor="let item of objectList; let i = index"
             class="card"
             [class.bought]="item.bought"
+            [class.light-red]="item.buyer === username"
     >
         <h3>{{ item.name }}</h3>
         <p><strong>Pris:</strong> {{ item.price | currency }}</p>
         <p><strong>Beskrivning:</strong> {{ item.description }}</p>
         <p><strong>Länk:</strong> <a [href]="item.href" target="_blank">{{ item.href }}</a></p>
         <div class="button-group">
-            <div>
-                <button (click)="toggleBought(i)" [disabled]="item.bought">Köp</button>
+            <div *ngIf="item.bought && item.buyer === username" class="warning">
+                <button (click)="regretBuy(i)" [disabled]="item.bought">Ångra köp</button>
+            </div>
+            <div *ngIf="!item.bought" class="warning">
+                <button (click)="buy(i)" [disabled]="item.bought">Köp</button>
             </div>
         </div>
     </div>
