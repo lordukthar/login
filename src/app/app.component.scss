@@ -29,3 +29,13 @@ router-outlet {
   }
 }
 
+.content {
+  display: flex;
+  flex-direction: column; /* Ensure vertical stacking */
+}
+
+.main-content {
+  margin-bottom: 20px; /* Adds space below the main content */
+}
+
+

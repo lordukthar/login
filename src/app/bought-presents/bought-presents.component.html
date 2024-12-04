@@ -9,13 +9,13 @@
         <p><strong>Länk:</strong> <a [href]="item.href" target="_blank">{{ item.href }}</a></p>
         <div class="button-group">
             <div>
-                <button (click)="doNotNuy(i)">Köp</button>
+                <button (click)="doNotNuy(i)">Ångra köp</button>
             </div>
         </div>
     </div>
 </div>
 <ng-template #noItems>
-    <p>No items available.</p>
+    <p>Du har inte köpt något ännu.</p>
 </ng-template>
 
 

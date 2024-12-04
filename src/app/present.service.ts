@@ -15,7 +15,7 @@ export type User = {
 })
 export class PresentService {
 
-   private apiUrl = 'http://localhost:5000/presents';
+   private apiUrl = 'http://localhost:5000/items';
 
   constructor(private http: HttpClient) { }
 

@@ -22,35 +22,7 @@ export class BoughtPresentsComponent  implements OnInit {
     editingIndex: number | null = null;
 
 
-    objectList : Item[] =  [
-        {
-            href: 'https://example.com/item1',
-            name: 'Badrumsvåg',
-            price: 19.99,
-            description: 'This is the description for Item 1.',
-            bought: false,
-            buyer: undefined,
-            wisher: this.username
-        },
-        {
-            href: 'https://example.com/item2',
-            name: 'Sneakers',
-            price: 29.99,
-            description: 'This is the description for Item 2.',
-           bought: false,
-            buyer: undefined,
-            wisher: this.username
-        },
-        {
-            href: 'https://example.com/item3',
-            name: 'Morgonrock',
-            price: 39.99,
-            description: 'This is the description for Item 3.',
-           bought: false,
-            buyer: undefined,
-            wisher: this.username
-        }
-    ];
+    objectList : Item[] =  [];
 
     constructor(private userService: UserService, private presentService: PresentService) {}
 
@@ -59,8 +31,21 @@ export class BoughtPresentsComponent  implements OnInit {
            // this.username = name;
         });
 
-         this.username = this.userService.getUser();
+             this.username = this.userService.getUser();
+                       this.fetchItems();
     }
+
+
+ fetchItems(): void {
+        this.presentService.get().subscribe({
+          next: (items:Item[]) => {
+            this.objectList = items; // Assign fetched items to objectList
+          },
+          error: (err:any) => {
+            console.error('Error fetching items:', err);
+          }
+        });
+      }
 
    doNotNuy(index: number) {
        if (this.objectList[index]) {

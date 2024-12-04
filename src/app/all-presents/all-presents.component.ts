@@ -16,36 +16,7 @@ export class AllPresentsComponent implements OnInit{
     editedItem: Item| null = null;
     editingIndex: number | null = null;
 
-     objectList: Item[] =  [
-          {
-            href: 'https://example.com/item1',
-            name: 'Item 1',
-            price: 19.99,
-            description: 'This is the description for Item 1.',
-            bought: true,
-                  buyer:'Jonas',
-                  wisher:'Jenny'
-          },
-          {
-            href: 'https://example.com/item2',
-            name: 'Item 2',
-            price: 29.99,
-            description: 'This is the description for Item 2.',
-            bought: true,
-            buyer:'Jonas',
-             wisher:'john_doe'
-          },
-          {
-            href: 'https://example.com/item3',
-            name: 'Item 3',
-            price: 39.99,
-            description: 'This is the description for Item 3.',
-            bought: false,
-            buyer:'',
-             wisher:'Sonia'
-          }
-        ];
-
+        objectList: Item[] = [];
 
      constructor(private userService: UserService, private presentService: PresentService) {}
 
@@ -56,8 +27,20 @@ export class AllPresentsComponent implements OnInit{
             });
 
              this.username = this.userService.getUser();
-              console.log("FOO user name", this.username)
+              this.fetchItems();
         }
+
+
+    fetchItems(): void {
+        this.presentService.get().subscribe({
+          next: (items:Item[]) => {
+            this.objectList = items; // Assign fetched items to objectList
+          },
+          error: (err:any) => {
+            console.error('Error fetching items:', err);
+          }
+        });
+      }
 
 
 toggleBought(index: number) {
