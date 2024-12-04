@@ -114,6 +114,7 @@ fetchItems(): void {
         if (this.editingIndex !== null && this.editedItem) {
 
             const updatedItem: Item = {
+                id: this.editedItem.id,
                 href: this.editedItem.href || '',
                 name: this.editedItem.name || '',
                 price: this.editedItem.price || 0,
@@ -122,6 +123,11 @@ fetchItems(): void {
                 buyer: undefined,
                 wisher: this.username
             };
+
+        this.presentService.put(updatedItem)
+        .subscribe((response:any) => {
+               console.log('Item with wisher deleteed:', response);
+             });
 
             this.objectList[this.editingIndex] = updatedItem;
             this.isEditing = false;
