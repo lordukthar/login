@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { Item } from '../models/item.interface';
 import { User, UserService } from '../user.service'
 import { PresentService } from '../present.service'
+import { map } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-my-presents',
@@ -38,16 +40,21 @@ export class MyPresentsComponent implements OnInit {
     }
 
 fetchItems(): void {
-    this.presentService.get().subscribe({
-      next: (items:Item[]) => {
-        this.objectList = items; // Assign fetched items to objectList
-      },
-      error: (err:any) => {
-        console.error('Error fetching items:', err);
-      }
-    });
-  }
+  const username = sessionStorage.getItem('username'); // Get the username from session storage
 
+  this.presentService.get().pipe(
+    map((items: Item[]) =>
+      items.filter(item => item.wisher === username) // Filter items where wisher matches username
+    )
+  ).subscribe(
+    (filteredItems: Item[]) => {
+      this.objectList = filteredItems; // Assign filtered items to objectList
+    },
+    (err: any) => {
+      console.error('Error fetching items:', err);
+    }
+  );
+}
 
     deleteItem(index: number) {
 
