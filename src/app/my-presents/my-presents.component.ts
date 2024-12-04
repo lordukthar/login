@@ -69,11 +69,11 @@ fetchItems(): void {
 
     addItem() {
 
-    const body: Item = {
-      ...this.newItem,           // Spread all properties of item
-      wisher: this.username,  // Explicitly set wisher to username
-      bought:false              // Include buyer if it's defined
-    };
+        const body: Item = {
+          ...this.newItem,           // Spread all properties of item
+          wisher: this.username,  // Explicitly set wisher to username
+          bought:false              // Include buyer if it's defined
+        };
 
 
         this.presentService.post(body)
@@ -88,7 +88,7 @@ fetchItems(): void {
                 wisher: this.username
               };
 
-           this.objectList.push(myItem); // Add the saved item to the list
+           this.objectList.push(body); // Add the saved item to the list
                       this.newItem = { href: '', name: '', price: 0, description: '', bought: false,
                             buyer: undefined, wisher: this.username };
                       this.isAddFormVisible = false;
