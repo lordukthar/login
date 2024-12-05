@@ -33,15 +33,23 @@ export const updatePresent = async (item: Item): Promise<Item> => {
 
     const a = item.firebaseID || ''
 
-    if (a) {
-      // Reference to the specific document in Firestore
-      const docRef = doc(db, collection_name, a);
-      // Update the entire document with the item fields
-      await updateDoc(docRef, { ...item });
-  }
+    console.log("FOO: ", JSON.stringify(item))
+console.log("FOO: ", JSON.stringify(a))
 
-  // Return the updated item
-  return item;
+    if (a) {
+         const docRef = doc(db, collection_name, a);
+          await deleteDoc(docRef);
+    }
+
+   const docRef = await addDoc(collection(db, collection_name), item);
+   const itemWithId: Item = {
+                 ...item,
+                 firebaseID: docRef.id, // Firestore generates an ID for the document
+               };
+
+               // Return the item with the added ID
+   return itemWithId;
+
 };
 
 export const getPresents = async (): Promise<Item[]> => {

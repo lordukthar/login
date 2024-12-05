@@ -9,13 +9,11 @@ import { Router } from '@angular/router';
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent implements OnInit {
-            users: User[] = [];
 
-            constructor(private userService: UserService, private sessionService: SessionService, private router: Router) { }
+            constructor(private sessionService: SessionService, private router: Router) { }
 
 
             ngOnInit() {
-              this.getUsers();
 
               const sessionToken = localStorage.getItem('sessionToken');
                   if (sessionToken) {
@@ -33,13 +31,5 @@ export class DashboardComponent implements OnInit {
                   }
 
             }
-
-
-           getUsers(): void {
-
-              this.userService.getUsers().subscribe(users => this.users = users);
-
-          }
-
 
 }

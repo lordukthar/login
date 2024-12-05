@@ -67,11 +67,16 @@ buy(index: number) {
   }
 
   regretBuy(index: number) {
+
+
+      console.log("FOO APA")
       if (this.objectList[index]) {
        const body: Item = { ...this.objectList[index],
                    bought:false,
-                   buyer:undefined
+                   buyer:""
                  };
+
+             console.log("FOO", JSON.stringify(body))
 
               this.presentService.put(body)
                      .subscribe((response:any) => {
