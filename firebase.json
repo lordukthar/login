@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "site": "christmas-c6610",
+    "public": "dist/my-app/browser",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
