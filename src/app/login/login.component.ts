@@ -12,6 +12,7 @@ import { User, UserService } from '../user.service'
 export class LoginComponent implements OnInit {
     username: string = '';
     password: string = '';
+    errorMessage: string = ''; // To store error messages
 
     constructor(private router: Router,
       private loginService: LoginService,
@@ -24,7 +25,7 @@ export class LoginComponent implements OnInit {
          // Check if the auth cookie is already set
           if (this.userService.isCookieSet('authToken')) {
             this.loginService.setAuthenticated(true)
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/my-presents']);
           }
         }
 
@@ -34,10 +35,16 @@ export class LoginComponent implements OnInit {
        this.sessionService.login(this.username, this.password).subscribe(
             response => {
               console.log('Login successful', response);
-              localStorage.setItem("sessionToken", response.sessionToken)
 
-              this.userService.setUserName(this.username);
-               this.router.navigate(['/dashboard']);
+              if (!response) {
+                  this.errorMessage = 'Login misslyckades fel uid eller pwd';
+              } else {
+                     localStorage.setItem("sessionToken", response.sessionToken)
+
+                                this.userService.setUserName(this.username);
+                                 this.router.navigate(['/dashboard']);
+                  }
+
               // Store the session token and user info as needed
             },
             error => {

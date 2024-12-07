@@ -9,6 +9,7 @@ import { BoughtPresentsComponent } from './bought-presents/bought-presents.compo
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
     { path: 'my-presents', component: MyPresentsComponent, canActivate: [AuthGuard]},
+        { path: 'dashboard', component: MyPresentsComponent, canActivate: [AuthGuard]},
       { path: 'all-presents', component: AllPresentsComponent, canActivate: [AuthGuard]},
             { path: 'bought-presents', component: BoughtPresentsComponent, canActivate: [AuthGuard]},
   { path: '', redirectTo: '/login', pathMatch: 'full' }

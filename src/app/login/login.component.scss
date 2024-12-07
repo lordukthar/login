@@ -65,3 +65,10 @@ button:disabled {
     width: 100%; /* Adjust width for smaller screens */
   }
 }
+
+.error-message {
+  color: red;
+  margin-bottom: 15px;
+  font-size: 14px;
+  text-align: center;
+}
