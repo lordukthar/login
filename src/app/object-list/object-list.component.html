@@ -34,7 +34,7 @@
         <h3>{{ item.name }}{{item.bought ? ' - [Varan är köpt]' : '' }}</h3>
         <p><strong>Price:</strong> {{ item.price | currency }}</p>
         <p><strong>Description:</strong> {{ item.description }}</p>
-        <p><strong>Link:</strong> <a [href]="item.href" target="_blank">{{ item.href }}</a></p>
+        <p><strong>Link:</strong> <a [href]="item.href" target="_blank">{{ item.href  | slice:0:15 }}...</a></p>
         <div>
             <button (click)="editItem(i)">Edit</button>
             <button (click)="deleteItem(i)">Delete</button>

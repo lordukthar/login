@@ -4,9 +4,10 @@
             class="card"
     >
         <h3>{{ item.name }}</h3>
-        <p><strong>Pris:</strong> {{ item.price | currency }}</p>
-        <p><strong>Beskrivning:</strong> {{ item.description }}</p>
-        <p><strong>Länk:</strong> <a [href]="item.href" target="_blank">{{ item.href }}</a></p>
+        <p><strong>Pris: </strong> {{ item.price | currency }}</p>
+        <p><strong>Beskrivning: </strong> {{ item.description }}</p>
+        <p><strong>Den som önskar: </strong> {{ item.wisher }}</p>
+        <p><strong>Länk: </strong> <a [href]="item.href" target="_blank">{{ item.href  | slice:0:15 }}...</a></p>
     </div>
 </div>
 <ng-template #noItems>

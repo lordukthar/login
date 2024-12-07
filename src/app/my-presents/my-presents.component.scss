@@ -184,6 +184,7 @@ p {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
+  align-items: flex-start;
 }
 
 .card {
@@ -218,7 +219,8 @@ p {
 .button-group {
   display: flex;
   gap: 10px; /* Space between buttons */
-  padding: 10px; /* Padding around the button group */
+  padding: 0px; /* Padding around the button group */
+  padding-top:10px
 }
 
 /* Button Base Styling */
@@ -228,12 +230,19 @@ button {
   border-radius: 4px; /* Rounded corners */
   cursor: pointer; /* Pointer cursor on hover */
   font-size: 14px; /* Adjust font size */
+
 }
+
+.add-button {
+      margin-left: 8px;
+      margin-top:8px
+     }
 
 /* Edit Button */
 .edit-button {
   background-color: #007bff; /* Blue color */
   color: white;
+  margin-right: 8px;
   transition: background-color 0.3s;
 }
 

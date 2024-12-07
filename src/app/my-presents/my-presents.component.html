@@ -1,6 +1,6 @@
 <div class="add-item-toggle">
-    <button (click)="toggleAddForm()">
-        {{ isAddFormVisible ? 'Hide Add Form' : 'Add New Item' }}
+    <button class="add-button" (click)="toggleAddForm()">
+        {{ isAddFormVisible ? 'Hide Add Form' : 'Lägg till en present' }}
     </button>
 </div>
 
@@ -29,9 +29,9 @@
             class="card"
     >
         <h3>{{ item.name }}</h3>
-        <p><strong>Pris:</strong> {{ item.price | currency }}</p>
+        <p><strong>Pris:</strong> {{ item.price | number:'1.0-0' }} kronor</p>
         <p><strong>Beskrivning:</strong> {{ item.description }}</p>
-        <p><strong>Länk:</strong> <a [href]="item.href" target="_blank">{{ item.href }}</a></p>
+        <p><strong>Länk: </strong> <a [href]="item.href" target="_blank">{{ item.href  | slice:0:15 }}...</a></p>
         <div class="button-group">
         <div>
             <button class="edit-button" (click)="editItem(i)">Editera</button>
@@ -46,7 +46,7 @@
 
 <div *ngIf="isEditing && editedItem" class="edit-modal">
     <div class="modal-content">
-        <h3>Edit Item</h3>
+        <h3>Editera present</h3>
         <form (ngSubmit)="saveChanges()">
             <label for="href">Link (href):</label>
             <input type="text" id="href" [(ngModel)]="editedItem.href" name="href" required>
