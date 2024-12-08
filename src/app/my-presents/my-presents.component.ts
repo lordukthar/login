@@ -70,6 +70,18 @@ fetchItems(): void {
 
     }
 
+expandedCardId: number | null = null;
+
+  toggleCard(cardId: number): void {
+
+      if (cardId === undefined) {
+          this.expandedCardId = 0;
+          } else {
+              this.expandedCardId = cardId;
+              }
+
+  }
+
     toggleAddForm() {
         this.isAddFormVisible = !this.isAddFormVisible;
     }

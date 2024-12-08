@@ -184,6 +184,7 @@ p {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
+  align-items: flex-start;
 }
 
 .card {
@@ -193,7 +194,28 @@ p {
   width: 300px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s;
+h3 {
+    margin: 0;
+  }
+
+  &:hover {
+    background-color: #f9f9f9;
+  }
 }
+
+.card:hover {
+  cursor: pointer;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a hover effect for better UX */
+}
+
+.card-details {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+
+
 .card.bought {
   background-color: lightgrey; /* Light grey background for bought items */
 }
@@ -202,9 +224,7 @@ p {
   background-color: lightcoral; /* Light red if buyer is the same as username */
 }
 
-.card:hover {
-  background-color: #f9f9f9;
-}
+
 
 .edit-modal {
   position: fixed;

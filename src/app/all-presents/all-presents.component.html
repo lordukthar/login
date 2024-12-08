@@ -4,8 +4,12 @@
             class="card"
             [class.bought]="item.bought"
             [class.light-red]="item.buyer === username"
-    >
+            (click)="item.id ? toggleCard(item.id) : 0">
         <h3>{{ item.name }}</h3>
+
+            <div class="card-details" *ngIf="expandedCardId === item.id">
+
+
         <p><strong>Pris:</strong> {{ item.price | currency }}</p>
         <p><strong>Beskrivning:</strong> {{ item.description }}</p>
         <p><strong>Den som önskar:</strong> {{ item.wisher }}</p>
@@ -13,6 +17,7 @@
         <div *ngIf="item.bought" class="warning">
             <p><strong>Köpare:</strong> {{ item.buyer }}</p>
         </div>
+                </div>
         <div class="button-group">
             <div *ngIf="item.bought && item.buyer === username" class="warning">
                 <button (click)="regretBuy(i)">Ångra köp</button>

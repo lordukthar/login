@@ -26,12 +26,15 @@
 <div class="card-container">
     <div
             *ngFor="let item of objectList; let i = index"
-            class="card"
-    >
-        <h3>{{ item.name }}</h3>
+            class="card" (click)="item.id ? toggleCard(item.id) : 0">
+
+        <h3>{{ item.name }} [{{item.wisher}}]</h3>
+
+        <div class="card-details" *ngIf="expandedCardId === item.id">
         <p><strong>Pris:</strong> {{ item.price | number:'1.0-0' }} kronor</p>
         <p><strong>Beskrivning:</strong> {{ item.description }}</p>
         <p><strong>Länk: </strong> <a [href]="item.href" target="_blank">{{ item.href  | slice:0:15 }}...</a></p>
+        </div>
         <div class="button-group">
         <div>
             <button class="edit-button" (click)="editItem(i)">Editera</button>
