@@ -125,14 +125,16 @@ expandedCardId: number | null = null;
     saveChanges() {
         if (this.editingIndex !== null && this.editedItem) {
 
+            const buyer = this.editedItem.buyer === undefined ? '': this.editedItem.buyer;
+
             const updatedItem: Item = {
                 id: this.editedItem.id,
                 href: this.editedItem.href || '',
                 name: this.editedItem.name || '',
                 price: this.editedItem.price || 0,
                 description: this.editedItem.description || '',
-                bought: false,
-                buyer: undefined,
+                bought: this.editedItem.bought,
+                buyer: buyer,
                 wisher: this.username
             };
 
