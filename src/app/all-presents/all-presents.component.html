@@ -14,8 +14,11 @@
         <p><strong>Pris:</strong> {{ item.price | currency }}</p>
         <p><strong>Beskrivning:</strong> {{ item.description }}</p>
         <p><strong>Den som önskar:</strong> {{ item.wisher }}</p>
+            <div *ngIf="item.href !== ''">
+
         <p><strong>Länk:</strong> <a [href]="item.href" target="_blank">{{ item.href  | slice:0:15 }}...</a></p>
-        <div *ngIf="item.bought" class="warning">
+            </div>
+            <div *ngIf="item.bought" class="warning">
             <p><strong>Köpare:</strong> {{ item.buyer }}</p>
         </div>
                 </div>

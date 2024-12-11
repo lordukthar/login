@@ -41,7 +41,6 @@ export class AllPresentsComponent implements OnInit{
        )
      ).subscribe(
        (filteredItems: Item[]) => {
-              console.log("FOO ", JSON.stringify(filteredItems));
          this.objectList = filteredItems; // Assign filtered items to objectList
        },
        (err: any) => {
