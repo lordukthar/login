@@ -5,9 +5,10 @@
             [class.bought]="item.bought"
             [class.light-red]="item.buyer === username"
             (click)="item.id ? toggleCard(item.id) : 0">
-        <h3>{{ item.name }}</h3>
+        <h3>{{ item.name }} [{{item.wisher}}]</h3>
 
-            <div class="card-details" *ngIf="expandedCardId === item.id">
+
+        <div class="card-details" *ngIf="expandedCardId === item.id">
 
 
         <p><strong>Pris:</strong> {{ item.price | currency }}</p>

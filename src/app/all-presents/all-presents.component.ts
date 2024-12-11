@@ -41,6 +41,7 @@ export class AllPresentsComponent implements OnInit{
        )
      ).subscribe(
        (filteredItems: Item[]) => {
+              console.log("FOO ", JSON.stringify(filteredItems));
          this.objectList = filteredItems; // Assign filtered items to objectList
        },
        (err: any) => {
@@ -67,9 +68,6 @@ buy(index: number) {
   }
 
   regretBuy(index: number) {
-
-
-      console.log("FOO APA")
       if (this.objectList[index]) {
        const body: Item = { ...this.objectList[index],
                    bought:false,
