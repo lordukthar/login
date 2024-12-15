@@ -5,6 +5,7 @@ import { Item } from '../models/item.interface';
 import { User, UserService } from '../user.service'
 import { PresentService } from '../present.service'
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -26,21 +27,27 @@ export class MyPresentsComponent implements OnInit {
 
     objectList: Item[] = [];
 
-    constructor(private userService: UserService, private presentService: PresentService) {}
+    constructor(private userService: UserService, private presentService: PresentService, private router: Router) {}
 
     ngOnInit() {
 
         this.fetchItems();
-        this.userService.username$.subscribe((name:string) => {
-           // this.username = name;
-        });
 
-         this.username = this.userService.getUser();
-         console.log("FOO", this.username)
+       this.username = this.userService.getUser();
+         if (this.username === "" || this.username === undefined || this.username === null) {
+             sessionStorage.removeItem('username');
+             this.router.navigate(['/login']);
+         }
     }
 
 fetchItems(): void {
   const username = sessionStorage.getItem('username'); // Get the username from session storage
+
+    if (username === "" || username === undefined || username === null) {
+                          sessionStorage.removeItem('username');
+                          this.router.navigate(['/login']);
+
+          }
 
   this.presentService.get().pipe(
     map((items: Item[]) =>
@@ -123,6 +130,8 @@ expandedCardId: number | null = null;
     }
 
     saveChanges() {
+
+
         if (this.editingIndex !== null && this.editedItem) {
 
             const buyer = this.editedItem.buyer === undefined ? '': this.editedItem.buyer;

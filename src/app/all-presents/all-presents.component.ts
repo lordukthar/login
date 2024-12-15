@@ -3,6 +3,7 @@ import { Item } from '../models/item.interface';
 import { User, UserService } from '../user.service'
 import { PresentService } from '../present.service'
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-all-presents',
@@ -19,21 +20,32 @@ export class AllPresentsComponent implements OnInit{
 
         objectList: Item[] = [];
 
-     constructor(private userService: UserService, private presentService: PresentService) {}
+     constructor(private userService: UserService, private presentService: PresentService, private router: Router) {}
 
         ngOnInit() {
-            this.userService.username$.subscribe((name:string) => {
-               // this.username = name;
+            this.username = this.userService.getUser();
 
-            });
 
-             this.username = this.userService.getUser();
+
+          if (this.username === "" || this.username === undefined || this.username === null) {
+              sessionStorage.removeItem('username');
+              this.router.navigate(['/login']);
+          }
+
+
               this.fetchItems();
         }
 
 
    fetchItems(): void {
      const username = sessionStorage.getItem('username'); // Get the username from session storage
+
+      if (username === "" || username === undefined || username === null) {
+                   sessionStorage.removeItem('username');
+                   this.router.navigate(['/login']);
+       }
+
+     console.log("FOO fetchItems()", username)
 
      this.presentService.get().pipe(
        map((items: Item[]) =>

@@ -34,15 +34,8 @@ export class SessionService {
         let modUs:User = {
                ...us,
                sessionToken: Date.now()}
-
-
-               console.log("FOO ", JSON.stringify(modUs));
-
                return modUs;
        }
-
-
-
     return us;
   };
 
